@@ -31,8 +31,8 @@ const Home = () => {
               <img
                 src="/images/home.png"
                 alt="coding together"
-                width={400}
-                height={500}
+                width="400"
+                height="500"
               />
             </div>
           </div>

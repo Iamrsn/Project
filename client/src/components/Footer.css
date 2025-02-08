@@ -1,0 +1,13 @@
+footer{
+    height: 60px;
+    width: auto;
+    background-color: rgb(101, 101, 193);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
