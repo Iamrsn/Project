@@ -29,8 +29,8 @@ const Contact = () => {
           <img
             src="/images/support.png"
             alt="we are always ready to help you"
-            height={400}
-            width={400}
+            height={500}
+            width={600}
           />
         </div>
         {/* contact form  */}

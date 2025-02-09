@@ -1,33 +1,50 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+  const [user, setuUser] = useState({
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
 
-  const[user,setuUser]=useState({
-    username:"",
-    email:"",
-    phone:"",
-    password:""
-  })
+  const navigate = useNavigate();
 
   //handling the input values
 
-  const HandleInput = (e)=>{
-    console.log(e)
+  const HandleInput = (e) => {
+    console.log(e);
     let name = e.target.name; //kis field me likh rha
-    let value = e.target.value //kya value likh rha hai
+    let value = e.target.value; //kya value likh rha hai
 
     setuUser({
       //...user,[e.target.name]:e.target.value
-      ...user,[name]:value
-    })
-  }
+      ...user,
+      [name]: value,
+    });
+  };
 
-  const handleSubmit=(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //alert(user)
-    console.log(user)
-  }
-
+    console.log(user);
+    try {
+      const response = await fetch(`http://localhost:3000/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.ok) {
+        setuUser({ username: "", email: "", phone: "", password: "" });
+        navigate("/login");
+      }
+      console.log(response);
+    } catch (error) {
+      console.log("error in registration", error);
+    }
+  };
 
   return (
     <section>
@@ -101,7 +118,9 @@ const Register = () => {
                   />
                 </div>
                 <br />
-                <button type="submit" className="btn btn-submit">Register Now</button>
+                <button type="submit" className="btn btn-submit">
+                  Register Now
+                </button>
               </form>
             </div>
           </div>

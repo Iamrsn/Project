@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [user, setuUser] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   //handling the input values
 
@@ -20,10 +21,33 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //alert(user)
     console.log(user);
+    try {
+      const response = await fetch(`http://localhost:3000/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log("login form", response);
+      if (response.ok) {
+        alert("Login succesful");
+        setuUser({
+          email: "",
+          password: "",
+        });
+        navigate("/")
+      } else {
+        alert("invalid credentials");
+        console.log("invalid credentials");
+      }
+    } catch (error) {
+      console.log("error in login", error);
+    }
   };
 
   return (
@@ -32,12 +56,7 @@ const Login = () => {
         <div className="section_registration">
           <div className="container grid grid-two-cols">
             <div className="registration_image">
-              <img
-                src="/images/login.png"
-                alt="try to fill Login form"
-                width="500"
-                height="500"
-              />
+              <img src="/images/login.png" alt="try to fill Login form" />
             </div>
             {/* let tackle registratin form */}
             <div className="registrartion_form">
